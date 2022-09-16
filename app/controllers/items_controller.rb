@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[show edit update destroy authorized]
-  before_action :authorized, only: %i[edit update destroy]
+  before_action :authorized, only: %i[new create edit update destroy]
 
   def show; end
 
@@ -10,12 +10,10 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    authorize @item
   end
 
   def create
     @item = Item.new(item_params)
-    authorize @item
     if @item.save!
       redirect_to root_path
     else
